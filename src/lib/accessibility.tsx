@@ -107,7 +107,7 @@ export function useAccessibility() {
 
 export const PROFILE_LABELS: Record<ProfileKey, { title: string; desc: string; emoji: string }> = {
   visual: {
-    title: "Deficiência Visual (cegueira)",
+    title: "Deficiência Visual\u00a0",
     desc: "Compatibilidade com leitores de tela, audiodescrição e textos alternativos detalhados.",
     emoji: "👁️",
   },
