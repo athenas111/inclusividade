@@ -9,38 +9,175 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as GestorRouteImport } from './routes/gestor'
+import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as OnboardingPerfilRouteImport } from './routes/onboarding.perfil'
+import { Route as AppTrilhaRouteImport } from './routes/app.trilha'
+import { Route as AppDashboardRouteImport } from './routes/app.dashboard'
+import { Route as AppConfiguracoesRouteImport } from './routes/app.configuracoes'
+import { Route as AppBarreirasRouteImport } from './routes/app.barreiras'
+import { Route as AppTrilhaModuloIdRouteImport } from './routes/app.trilha.$moduloId'
 
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GestorRoute = GestorRouteImport.update({
+  id: '/gestor',
+  path: '/gestor',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppRoute = AppRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OnboardingPerfilRoute = OnboardingPerfilRouteImport.update({
+  id: '/onboarding/perfil',
+  path: '/onboarding/perfil',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppTrilhaRoute = AppTrilhaRouteImport.update({
+  id: '/trilha',
+  path: '/trilha',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppDashboardRoute = AppDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppConfiguracoesRoute = AppConfiguracoesRouteImport.update({
+  id: '/configuracoes',
+  path: '/configuracoes',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppBarreirasRoute = AppBarreirasRouteImport.update({
+  id: '/barreiras',
+  path: '/barreiras',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppTrilhaModuloIdRoute = AppTrilhaModuloIdRouteImport.update({
+  id: '/$moduloId',
+  path: '/$moduloId',
+  getParentRoute: () => AppTrilhaRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/gestor': typeof GestorRoute
+  '/login': typeof LoginRoute
+  '/app/barreiras': typeof AppBarreirasRoute
+  '/app/configuracoes': typeof AppConfiguracoesRoute
+  '/app/dashboard': typeof AppDashboardRoute
+  '/app/trilha': typeof AppTrilhaRouteWithChildren
+  '/onboarding/perfil': typeof OnboardingPerfilRoute
+  '/app/trilha/$moduloId': typeof AppTrilhaModuloIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/gestor': typeof GestorRoute
+  '/login': typeof LoginRoute
+  '/app/barreiras': typeof AppBarreirasRoute
+  '/app/configuracoes': typeof AppConfiguracoesRoute
+  '/app/dashboard': typeof AppDashboardRoute
+  '/app/trilha': typeof AppTrilhaRouteWithChildren
+  '/onboarding/perfil': typeof OnboardingPerfilRoute
+  '/app/trilha/$moduloId': typeof AppTrilhaModuloIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/gestor': typeof GestorRoute
+  '/login': typeof LoginRoute
+  '/app/barreiras': typeof AppBarreirasRoute
+  '/app/configuracoes': typeof AppConfiguracoesRoute
+  '/app/dashboard': typeof AppDashboardRoute
+  '/app/trilha': typeof AppTrilhaRouteWithChildren
+  '/onboarding/perfil': typeof OnboardingPerfilRoute
+  '/app/trilha/$moduloId': typeof AppTrilhaModuloIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/gestor'
+    | '/login'
+    | '/app/barreiras'
+    | '/app/configuracoes'
+    | '/app/dashboard'
+    | '/app/trilha'
+    | '/onboarding/perfil'
+    | '/app/trilha/$moduloId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/app'
+    | '/gestor'
+    | '/login'
+    | '/app/barreiras'
+    | '/app/configuracoes'
+    | '/app/dashboard'
+    | '/app/trilha'
+    | '/onboarding/perfil'
+    | '/app/trilha/$moduloId'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/gestor'
+    | '/login'
+    | '/app/barreiras'
+    | '/app/configuracoes'
+    | '/app/dashboard'
+    | '/app/trilha'
+    | '/onboarding/perfil'
+    | '/app/trilha/$moduloId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRoute: typeof AppRouteWithChildren
+  GestorRoute: typeof GestorRoute
+  LoginRoute: typeof LoginRoute
+  OnboardingPerfilRoute: typeof OnboardingPerfilRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gestor': {
+      id: '/gestor'
+      path: '/gestor'
+      fullPath: '/gestor'
+      preLoaderRoute: typeof GestorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +185,86 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/onboarding/perfil': {
+      id: '/onboarding/perfil'
+      path: '/onboarding/perfil'
+      fullPath: '/onboarding/perfil'
+      preLoaderRoute: typeof OnboardingPerfilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/trilha': {
+      id: '/app/trilha'
+      path: '/trilha'
+      fullPath: '/app/trilha'
+      preLoaderRoute: typeof AppTrilhaRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/dashboard': {
+      id: '/app/dashboard'
+      path: '/dashboard'
+      fullPath: '/app/dashboard'
+      preLoaderRoute: typeof AppDashboardRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/configuracoes': {
+      id: '/app/configuracoes'
+      path: '/configuracoes'
+      fullPath: '/app/configuracoes'
+      preLoaderRoute: typeof AppConfiguracoesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/barreiras': {
+      id: '/app/barreiras'
+      path: '/barreiras'
+      fullPath: '/app/barreiras'
+      preLoaderRoute: typeof AppBarreirasRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/trilha/$moduloId': {
+      id: '/app/trilha/$moduloId'
+      path: '/$moduloId'
+      fullPath: '/app/trilha/$moduloId'
+      preLoaderRoute: typeof AppTrilhaModuloIdRouteImport
+      parentRoute: typeof AppTrilhaRoute
+    }
   }
 }
 
+interface AppTrilhaRouteChildren {
+  AppTrilhaModuloIdRoute: typeof AppTrilhaModuloIdRoute
+}
+
+const AppTrilhaRouteChildren: AppTrilhaRouteChildren = {
+  AppTrilhaModuloIdRoute: AppTrilhaModuloIdRoute,
+}
+
+const AppTrilhaRouteWithChildren = AppTrilhaRoute._addFileChildren(
+  AppTrilhaRouteChildren,
+)
+
+interface AppRouteChildren {
+  AppBarreirasRoute: typeof AppBarreirasRoute
+  AppConfiguracoesRoute: typeof AppConfiguracoesRoute
+  AppDashboardRoute: typeof AppDashboardRoute
+  AppTrilhaRoute: typeof AppTrilhaRouteWithChildren
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppBarreirasRoute: AppBarreirasRoute,
+  AppConfiguracoesRoute: AppConfiguracoesRoute,
+  AppDashboardRoute: AppDashboardRoute,
+  AppTrilhaRoute: AppTrilhaRouteWithChildren,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRoute: AppRouteWithChildren,
+  GestorRoute: GestorRoute,
+  LoginRoute: LoginRoute,
+  OnboardingPerfilRoute: OnboardingPerfilRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
