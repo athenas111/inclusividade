@@ -177,12 +177,13 @@ function ProfileCard({
   desc: string;
 }) {
   return (
-    <article className="rounded-2xl border border-border bg-card p-5">
-      <div className="grid h-10 w-10 place-items-center rounded-xl bg-accent text-accent-foreground">
+    <article className="group relative overflow-hidden rounded-2xl border border-white/20 bg-white/10 p-5 shadow-lg backdrop-blur-xl backdrop-saturate-150 transition-all hover:-translate-y-1 hover:border-white/30 hover:bg-white/15 dark:border-white/10 dark:bg-white/5">
+      <div className="absolute -top-12 -right-12 h-32 w-32 rounded-full bg-primary/30 blur-3xl transition-opacity group-hover:opacity-80" aria-hidden />
+      <div className="relative grid h-10 w-10 place-items-center rounded-xl border border-white/20 bg-white/20 text-primary backdrop-blur-md dark:bg-white/10">
         {icon}
       </div>
-      <h3 className="mt-4 text-base font-semibold">{title}</h3>
-      <p className="mt-1 text-sm text-muted-foreground">{desc}</p>
+      <h3 className="relative mt-4 text-base font-semibold">{title}</h3>
+      <p className="relative mt-1 text-sm text-muted-foreground">{desc}</p>
     </article>
   );
 }
