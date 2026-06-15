@@ -177,12 +177,12 @@ function ProfileCard({
   desc: string;
 }) {
   return (
-    <article className="group relative overflow-hidden rounded-2xl border border-white/25 bg-white/[0.12] p-5 shadow-[0_8px_32px_0_rgba(31,38,135,0.15)] backdrop-blur-2xl backdrop-saturate-[1.8] transition-colors hover:border-white/40 hover:bg-white/[0.18] dark:border-white/15 dark:bg-white/[0.08]">
-      <div className="absolute -top-10 -right-10 h-28 w-28 rounded-full bg-primary/25 blur-2xl transition-opacity group-hover:opacity-60" aria-hidden />
-      <div className="relative grid h-10 w-10 place-items-center rounded-xl border border-white/25 bg-white/[0.22] text-primary shadow-sm backdrop-blur-md dark:bg-white/10">
+    <article className="group relative overflow-hidden rounded-2xl border border-white/40 bg-white/[0.18] p-5 shadow-[0_4px_24px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.25)] backdrop-blur-[40px] backdrop-saturate-[2] transition-colors hover:border-white/60 hover:bg-white/[0.26] dark:border-white/20 dark:bg-white/[0.10]">
+      <div className="absolute -top-10 -right-10 h-28 w-28 rounded-full bg-primary/30 blur-2xl transition-opacity group-hover:opacity-70" aria-hidden />
+      <div className="relative grid h-10 w-10 place-items-center rounded-xl border border-white/40 bg-white/[0.30] text-primary shadow-sm backdrop-blur-md dark:bg-white/15">
         {icon}
       </div>
-      <h3 className="relative mt-4 text-base font-semibold">{title}</h3>
+      <h3 className="relative mt-4 text-base font-semibold text-foreground">{title}</h3>
       <p className="relative mt-1 text-sm text-muted-foreground">{desc}</p>
     </article>
   );
