@@ -48,12 +48,7 @@ function ConfigPage() {
                   className="mt-1"
                 />
                 <div>
-                  <p className="font-semibold">
-                    <span aria-hidden className="mr-2">
-                      {meta.emoji}
-                    </span>
-                    {meta.title}
-                  </p>
+                  <p className="font-semibold"><span aria-hidden>{meta.emoji}</span>{meta.title}</p>
                   <p className="mt-1 text-sm text-muted-foreground">{meta.desc}</p>
                 </div>
               </label>
