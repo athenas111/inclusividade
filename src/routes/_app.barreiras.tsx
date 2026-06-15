@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { INITIAL_BARRIERS, type Barrier } from "@/lib/mock-data";
 
-export const Route = createFileRoute("/app/barreiras")({
+export const Route = createFileRoute("/_app/barreiras")({
   head: () => ({
     meta: [
       { title: "Mapeamento de barreiras — InclusivOn" },

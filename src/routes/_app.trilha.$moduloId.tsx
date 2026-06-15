@@ -4,7 +4,7 @@ import { MODULES, type Module } from "@/lib/mock-data";
 import { useAccessibility } from "@/lib/accessibility";
 import { Button } from "@/components/ui/button";
 
-export const Route = createFileRoute("/app/trilha/$moduloId")({
+export const Route = createFileRoute("/_app/trilha/$moduloId")({
   head: ({ params }) => {
     const m = MODULES.find((x) => x.id === params.moduloId);
     return {
@@ -23,7 +23,7 @@ export const Route = createFileRoute("/app/trilha/$moduloId")({
   notFoundComponent: () => (
     <div className="p-8">
       <p>Módulo não encontrado.</p>
-      <Link to="/app/dashboard" className="text-primary underline">
+      <Link to="/dashboard" className="text-primary underline">
         Voltar ao painel
       </Link>
     </div>
@@ -39,7 +39,7 @@ function ModulePage() {
   return (
     <div>
       <Link
-        to="/app/dashboard"
+        to="/dashboard"
         className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
       >
         <ArrowLeft aria-hidden className="h-4 w-4" /> Voltar ao painel
@@ -99,21 +99,21 @@ function ModulePage() {
 
           <div className="mt-8 flex flex-wrap items-center justify-between gap-3">
             <Button asChild variant="outline">
-              <Link to="/app/barreiras">
+              <Link to="/barreiras">
                 <Flag aria-hidden className="mr-2 h-4 w-4" />
                 Reportar barreira neste conteúdo
               </Link>
             </Button>
             {next ? (
               <Button asChild size="lg">
-                <Link to="/app/trilha/$moduloId" params={{ moduloId: next.id }}>
+                <Link to="/trilha/$moduloId" params={{ moduloId: next.id }}>
                   Próximo módulo
                   <ArrowRight aria-hidden className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
             ) : (
               <Button asChild size="lg">
-                <Link to="/app/dashboard">Concluir trilha</Link>
+                <Link to="/dashboard">Concluir trilha</Link>
               </Button>
             )}
           </div>

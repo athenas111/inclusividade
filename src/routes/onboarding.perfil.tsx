@@ -38,7 +38,7 @@ function OnboardingWizard() {
   function finish() {
     applyProfilePresets(selected);
     update({ onboardingDone: true });
-    navigate({ to: "/app/dashboard" });
+    navigate({ to: "/dashboard" });
   }
 
   const steps = [

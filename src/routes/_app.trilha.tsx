@@ -2,7 +2,7 @@ import { createFileRoute, Link, Outlet, useRouterState } from "@tanstack/react-r
 import { Clock } from "lucide-react";
 import { MODULES } from "@/lib/mock-data";
 
-export const Route = createFileRoute("/app/trilha")({
+export const Route = createFileRoute("/_app/trilha")({
   head: () => ({
     meta: [
       { title: "Trilha de integração — InclusivOn" },
@@ -14,7 +14,7 @@ export const Route = createFileRoute("/app/trilha")({
 
 function TrilhaLayout() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  if (pathname !== "/app/trilha") return <Outlet />;
+  if (pathname !== "/trilha") return <Outlet />;
   return (
     <div>
       <h1 className="text-3xl font-bold tracking-tight">Trilha de integração</h1>
@@ -25,7 +25,7 @@ function TrilhaLayout() {
         {MODULES.map((m, i) => (
           <li key={m.id}>
             <Link
-              to="/app/trilha/$moduloId"
+              to="/trilha/$moduloId"
               params={{ moduloId: m.id }}
               className="block h-full rounded-2xl border border-border bg-card p-5 transition hover:bg-muted"
             >

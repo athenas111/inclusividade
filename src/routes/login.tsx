@@ -27,7 +27,7 @@ function LoginPage() {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     update({ name });
-    if (state.onboardingDone) navigate({ to: "/app/dashboard" });
+    if (state.onboardingDone) navigate({ to: "/dashboard" });
     else navigate({ to: "/onboarding/perfil" });
   }
 

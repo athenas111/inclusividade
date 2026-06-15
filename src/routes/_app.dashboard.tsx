@@ -4,7 +4,7 @@ import { MODULES } from "@/lib/mock-data";
 import { useAccessibility } from "@/lib/accessibility";
 import { Button } from "@/components/ui/button";
 
-export const Route = createFileRoute("/app/dashboard")({
+export const Route = createFileRoute("/_app/dashboard")({
   head: () => ({
     meta: [
       { title: "Painel — InclusivOn" },
@@ -64,7 +64,7 @@ function Dashboard() {
           <p className="text-sm font-semibold">Próximo passo</p>
           <p className="mt-1 text-sm text-muted-foreground">{MODULES[completed].title}</p>
           <Button asChild className="mt-4 w-full">
-            <Link to="/app/trilha/$moduloId" params={{ moduloId: MODULES[completed].id }}>
+            <Link to="/trilha/$moduloId" params={{ moduloId: MODULES[completed].id }}>
               Continuar <ArrowRight aria-hidden className="ml-2 h-4 w-4" />
             </Link>
           </Button>
@@ -82,7 +82,7 @@ function Dashboard() {
             return (
               <li key={m.id}>
                 <Link
-                  to="/app/trilha/$moduloId"
+                  to="/trilha/$moduloId"
                   params={{ moduloId: m.id }}
                   className={`flex items-center gap-4 rounded-2xl border p-4 transition ${
                     current
