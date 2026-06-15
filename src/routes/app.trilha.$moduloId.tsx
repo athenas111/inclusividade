@@ -142,7 +142,7 @@ function ModulePage() {
           <div className="rounded-2xl border border-border bg-card p-4">
             <p className="text-sm font-semibold">O que você vai aprender</p>
             <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-              {mod.topics.map((t) => (
+              {mod.topics.map((t: string) => (
                 <li key={t} className="flex items-start gap-2">
                   <span aria-hidden className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
                   {t}
