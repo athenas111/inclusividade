@@ -274,22 +274,26 @@
 
 @keyframes aurora-shift {
   0% {
-    transform: translate(0, 0) scale(1);
+    transform: translate(0, 0) scale(1) rotate(0deg);
   }
-  33% {
-    transform: translate(2%, -1%) scale(1.02);
+  25% {
+    transform: translate(8%, -5%) scale(1.15) rotate(2deg);
   }
-  66% {
-    transform: translate(-1%, 2%) scale(0.98);
+  50% {
+    transform: translate(-6%, 6%) scale(1.1) rotate(-2deg);
+  }
+  75% {
+    transform: translate(4%, 3%) scale(1.2) rotate(1deg);
   }
   100% {
-    transform: translate(0, 0) scale(1);
+    transform: translate(0, 0) scale(1) rotate(0deg);
   }
 }
 
 .aurora-animated {
-  animation: aurora-shift 8s ease-in-out infinite;
+  animation: aurora-shift 10s ease-in-out infinite;
   will-change: transform;
+  transform-origin: center;
 }
 
 .aurora-animated::before {
