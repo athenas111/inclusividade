@@ -51,7 +51,7 @@ function Index() {
         <section className="relative overflow-hidden">
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 -z-10 opacity-60"
+            className="pointer-events-none absolute inset-0 -z-10 opacity-60 aurora-animated"
             data-focus-hide
             style={{
               background:
