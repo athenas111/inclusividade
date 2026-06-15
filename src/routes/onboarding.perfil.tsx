@@ -97,12 +97,7 @@ function OnboardingWizard() {
                       className="mt-1"
                     />
                     <div className="flex-1">
-                      <p className="text-base font-semibold">
-                        <span aria-hidden className="mr-2">
-                          {meta.emoji}
-                        </span>
-                        {meta.title}
-                      </p>
+                      <p className="text-base font-semibold"><span aria-hidden>{meta.emoji}</span>{meta.title}</p>
                       <p className="mt-1 text-sm text-muted-foreground">{meta.desc}</p>
                     </div>
                   </label>
