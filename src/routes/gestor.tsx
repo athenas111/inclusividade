@@ -23,7 +23,7 @@ export const Route = createFileRoute("/gestor")({
 
 function GestorPage() {
   return (
-    <div className="min-h-dvh bg-background">
+    <div className="page-aurora min-h-dvh bg-background">
       <header className="border-b border-border">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
           <Link to="/" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">

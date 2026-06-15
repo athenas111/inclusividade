@@ -222,3 +222,39 @@
     }
   }
 }
+
+/* Decorative aurora background — soft, visible light gradient.
+   Used as a wrapper class on full-page or section containers.
+   Disabled automatically under .high-contrast and .focus-mode. */
+@utility page-aurora {
+  position: relative;
+  isolation: isolate;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(60% 55% at 85% 0%, color-mix(in oklab, var(--color-primary) 28%, transparent), transparent 70%),
+      radial-gradient(55% 50% at 0% 100%, color-mix(in oklab, var(--color-accent) 75%, transparent), transparent 70%),
+      radial-gradient(40% 35% at 50% 50%, color-mix(in oklab, var(--color-primary) 8%, transparent), transparent 70%);
+  }
+}
+
+@utility aurora-panel {
+  background:
+    linear-gradient(135deg,
+      var(--color-primary) 0%,
+      color-mix(in oklab, var(--color-primary) 55%, var(--color-accent)) 60%,
+      color-mix(in oklab, var(--color-primary) 30%, #a78bfa) 100%);
+}
+
+.high-contrast .page-aurora::before,
+.focus-mode .page-aurora::before {
+  display: none !important;
+}
+.high-contrast .aurora-panel,
+.focus-mode .aurora-panel {
+  background: var(--color-background) !important;
+}

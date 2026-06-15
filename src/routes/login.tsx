@@ -32,19 +32,15 @@ function LoginPage() {
   }
 
   return (
-    <div className="min-h-dvh bg-background p-4">
+    <div className="page-aurora min-h-dvh bg-background p-4">
       <main
         id="conteudo-principal"
-        className="mx-auto grid min-h-[calc(100dvh-2rem)] max-w-6xl overflow-hidden rounded-3xl border border-border bg-card lg:grid-cols-2"
+        className="mx-auto grid min-h-[calc(100dvh-2rem)] max-w-6xl overflow-hidden rounded-3xl border border-border bg-card shadow-xl lg:grid-cols-2"
       >
         <aside
           aria-hidden
           data-focus-hide
-          className="relative hidden flex-col justify-between p-10 text-primary-foreground lg:flex"
-          style={{
-            background:
-              "linear-gradient(135deg, var(--color-primary) 0%, color-mix(in oklab, var(--color-primary) 60%, var(--color-accent)) 100%)",
-          }}
+          className="aurora-panel relative hidden flex-col justify-between p-10 text-primary-foreground lg:flex"
         >
           <div className="grid h-12 w-12 place-items-center rounded-2xl bg-white/15 backdrop-blur">
             <Sparkles className="h-6 w-6" />
@@ -57,9 +53,21 @@ function LoginPage() {
           </div>
         </aside>
 
-        <section className="flex flex-col justify-center p-8 sm:p-12">
-          <div className="grid h-10 w-10 place-items-center rounded-xl bg-primary text-primary-foreground lg:hidden">
-            <Sparkles aria-hidden className="h-5 w-5" />
+        <section className="flex flex-col justify-start p-8 sm:p-12 lg:justify-center">
+          <div
+            aria-hidden
+            data-focus-hide
+            className="aurora-panel -mx-8 -mt-8 mb-6 flex items-end justify-between gap-3 rounded-b-3xl p-6 text-primary-foreground sm:-mx-12 sm:-mt-12 sm:p-8 lg:hidden"
+          >
+            <div>
+              <p className="text-xs uppercase tracking-widest opacity-80">Boas-vindas</p>
+              <p className="mt-1 text-lg font-bold leading-tight">
+                Sua integração começa do jeito que faz sentido pra você.
+              </p>
+            </div>
+            <div className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-white/15 backdrop-blur">
+              <Sparkles aria-hidden className="h-5 w-5" />
+            </div>
           </div>
           <h1 className="mt-4 text-3xl font-bold tracking-tight">Entrar na InclusivOn</h1>
           <p className="mt-2 text-muted-foreground">

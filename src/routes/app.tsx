@@ -32,7 +32,7 @@ function AppLayout() {
   }, [state.onboardingDone, state.name, navigate]);
 
   return (
-    <div className="min-h-dvh bg-background">
+    <div className="page-aurora min-h-dvh bg-background">
       <div className="mx-auto flex max-w-7xl">
         <aside
           aria-label="Navegação lateral"
