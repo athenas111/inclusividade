@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Clock, Flag, Hand } from "lucide-react";
-import { MODULES } from "@/lib/mock-data";
+import { MODULES, type Module } from "@/lib/mock-data";
 import { useAccessibility } from "@/lib/accessibility";
 import { Button } from "@/components/ui/button";
 
@@ -14,7 +14,7 @@ export const Route = createFileRoute("/app/trilha/$moduloId")({
       ],
     };
   },
-  loader: ({ params }) => {
+  loader: ({ params }): Module => {
     const mod = MODULES.find((m) => m.id === params.moduloId);
     if (!mod) throw notFound();
     return mod;
