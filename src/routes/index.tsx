@@ -48,37 +48,37 @@ function Index() {
       </header>
 
       <main id="conteudo-principal">
-        <section className="relative overflow-hidden">
+        <section className="relative overflow-hidden py-10 px-4 sm:px-6">
+          {/* Fundo gradiente dois tons de azul */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 -z-10 opacity-60 aurora-animated"
-            data-focus-hide
+            className="pointer-events-none absolute inset-0 -z-10"
             style={{
-              background:
-                "radial-gradient(60% 50% at 70% 20%, color-mix(in oklab, var(--color-primary) 45%, transparent), transparent 70%), radial-gradient(50% 40% at 10% 80%, color-mix(in oklab, var(--color-accent) 65%, transparent), transparent 70%)",
+              background: "linear-gradient(135deg, #2563eb 0%, #1e40af 100%)",
             }}
           />
-          <div className="mx-auto max-w-6xl px-6 py-20 sm:py-28">
-            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">
-              <CheckCircle2 aria-hidden className="h-3.5 w-3.5 text-primary" />
+          {/* Painel glassmorphism sobre o gradiente */}
+          <div className="mx-auto max-w-6xl rounded-3xl border border-white/30 bg-white/[0.08] p-8 shadow-[0_8px_32px_rgba(0,0,0,0.2)] backdrop-blur-3xl sm:p-12">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/15 px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-md">
+              <CheckCircle2 aria-hidden className="h-3.5 w-3.5 text-white" />
               Design Universal para a Aprendizagem
             </span>
-            <h1 className="mt-5 max-w-3xl text-4xl font-bold tracking-tight sm:text-6xl">
+            <h1 className="mt-5 max-w-3xl text-4xl font-bold tracking-tight text-white sm:text-6xl">
               Onboarding que se adapta a cada pessoa — não o contrário.
             </h1>
-            <p className="mt-5 max-w-2xl text-lg text-muted-foreground">
+            <p className="mt-5 max-w-2xl text-lg text-white/80">
               A InclusivOn é a plataforma de integração corporativa que ajusta interface, conteúdo e ritmo
               ao Perfil de Acessibilidade de quem está chegando — e prepara gestor e equipe para receber
               bem.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild size="lg">
+              <Button asChild size="lg" className="bg-white text-blue-700 hover:bg-white/90">
                 <Link to="/login">
                   Entrar como funcionário
                   <ArrowRight aria-hidden className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline">
+              <Button asChild size="lg" variant="outline" className="border-white/40 text-white hover:bg-white/15 hover:text-white">
                 <Link to="/gestor">Visão do gestor</Link>
               </Button>
             </div>
