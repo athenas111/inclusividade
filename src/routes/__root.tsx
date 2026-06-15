@@ -79,19 +79,25 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "InclusivOn — Onboarding acessível para PCDs" },
+      { title: "InclusivOn" },
       {
         name: "description",
         content:
           "Plataforma de integração corporativa baseada em Design Universal para a Aprendizagem (DUA). Adapta interface e conteúdo ao Perfil de Acessibilidade de cada pessoa.",
       },
-      { property: "og:title", content: "InclusivOn — Onboarding acessível para PCDs" },
+      { property: "og:title", content: "InclusivOn" },
       {
         property: "og:description",
         content: "Integração corporativa que se adapta a cada pessoa — sem barreiras desde o primeiro dia.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "InclusivOn" },
+      { name: "description", content: "Inclusive Start is an accessible onboarding platform for diverse workforces." },
+      { property: "og:description", content: "Inclusive Start is an accessible onboarding platform for diverse workforces." },
+      { name: "twitter:description", content: "Inclusive Start is an accessible onboarding platform for diverse workforces." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/b771c7cc-c69e-4431-8c7e-34dd7ab084ae/id-preview-da1f2cc6--98d75164-888f-497c-b881-4ca50982f0aa.lovable.app-1781546431604.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/b771c7cc-c69e-4431-8c7e-34dd7ab084ae/id-preview-da1f2cc6--98d75164-888f-497c-b881-4ca50982f0aa.lovable.app-1781546431604.png" },
     ],
     links: [
       {
