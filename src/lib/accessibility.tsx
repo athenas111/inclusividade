@@ -112,17 +112,17 @@ export const PROFILE_LABELS: Record<ProfileKey, { title: string; desc: string; e
     emoji: "👁️",
   },
   "low-vision": {
-    title: "Baixa visão / Idosos",
+    title: "Baixa visão\u00a0",
     desc: "Alto contraste, fontes maiores e zoom sem quebrar o layout.",
     emoji: "🔎",
   },
   hearing: {
-    title: "Deficiência Auditiva (surdez)",
+    title: "Deficiência Auditiva\u00a0",
     desc: "Legendas, janela de Libras e transcrição de áudios.",
     emoji: "🤟",
   },
   neuro: {
-    title: "Neurodivergência (TDAH, Autismo)",
+    title: "Neurodivergência\u00a0",
     desc: "Modo Foco sem distrações, microlearning e controle de velocidade.",
     emoji: "🧠",
   },
