@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { BookOpen, LayoutDashboard, LifeBuoy, Settings, Sparkles } from "lucide-react";
 import { useAccessibility } from "@/lib/accessibility";
 
-export const Route = createFileRoute("/app")({
+export const Route = createFileRoute("/_app")({
   head: () => ({
     meta: [
       { title: "Meu painel — InclusivOn" },
