@@ -53,7 +53,7 @@ function LoginPage() {
           </div>
         </aside>
 
-        <section className="flex flex-col justify-center p-8 sm:p-12">
+        <section className="flex flex-col justify-start p-8 sm:p-12 lg:justify-center">
           <div
             aria-hidden
             data-focus-hide
