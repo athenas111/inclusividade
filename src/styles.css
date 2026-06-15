@@ -211,7 +211,7 @@
     animation-duration: 0.001ms !important;
     transition-duration: 0.001ms !important;
   }
-  .focus-mode [data-focus-hide] {
+  .focus-mode [data-focus-hide="true"] {
     display: none !important;
   }
 
