@@ -3,7 +3,7 @@ import { PROFILE_LABELS, useAccessibility, type ProfileKey } from "@/lib/accessi
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 
-export const Route = createFileRoute("/app/configuracoes")({
+export const Route = createFileRoute("/_app/configuracoes")({
   head: () => ({
     meta: [
       { title: "Configurações — InclusivOn" },

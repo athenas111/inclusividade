@@ -14,10 +14,10 @@ export const Route = createFileRoute("/_app")({
 });
 
 const NAV = [
-  { to: "/app/dashboard", label: "Painel", icon: LayoutDashboard },
-  { to: "/app/trilha", label: "Trilha", icon: BookOpen },
-  { to: "/app/barreiras", label: "Barreiras", icon: LifeBuoy },
-  { to: "/app/configuracoes", label: "Configurações", icon: Settings },
+  { to: "/dashboard", label: "Painel", icon: LayoutDashboard },
+  { to: "/trilha", label: "Trilha", icon: BookOpen },
+  { to: "/barreiras", label: "Barreiras", icon: LifeBuoy },
+  { to: "/configuracoes", label: "Configurações", icon: Settings },
 ] as const;
 
 function AppLayout() {
@@ -47,8 +47,8 @@ function AppLayout() {
           <nav className="flex flex-col gap-1">
             {NAV.map((item) => {
               const active =
-                item.to === "/app/trilha"
-                  ? pathname.startsWith("/app/trilha")
+                item.to === "/trilha"
+                  ? pathname.startsWith("/trilha")
                   : pathname === item.to;
               const Icon = item.icon;
               return (

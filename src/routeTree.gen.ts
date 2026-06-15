@@ -11,14 +11,14 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as GestorRouteImport } from './routes/gestor'
-import { Route as AppRouteImport } from './routes/app'
+import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as OnboardingPerfilRouteImport } from './routes/onboarding.perfil'
-import { Route as AppTrilhaRouteImport } from './routes/app.trilha'
-import { Route as AppDashboardRouteImport } from './routes/app.dashboard'
-import { Route as AppConfiguracoesRouteImport } from './routes/app.configuracoes'
-import { Route as AppBarreirasRouteImport } from './routes/app.barreiras'
-import { Route as AppTrilhaModuloIdRouteImport } from './routes/app.trilha.$moduloId'
+import { Route as AppTrilhaRouteImport } from './routes/_app.trilha'
+import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
+import { Route as AppConfiguracoesRouteImport } from './routes/_app.configuracoes'
+import { Route as AppBarreirasRouteImport } from './routes/_app.barreiras'
+import { Route as AppTrilhaModuloIdRouteImport } from './routes/_app.trilha.$moduloId'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -31,8 +31,7 @@ const GestorRoute = GestorRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppRoute = AppRouteImport.update({
-  id: '/app',
-  path: '/app',
+  id: '/_app',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -73,78 +72,74 @@ const AppTrilhaModuloIdRoute = AppTrilhaModuloIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/app': typeof AppRouteWithChildren
   '/gestor': typeof GestorRoute
   '/login': typeof LoginRoute
-  '/app/barreiras': typeof AppBarreirasRoute
-  '/app/configuracoes': typeof AppConfiguracoesRoute
-  '/app/dashboard': typeof AppDashboardRoute
-  '/app/trilha': typeof AppTrilhaRouteWithChildren
+  '/barreiras': typeof AppBarreirasRoute
+  '/configuracoes': typeof AppConfiguracoesRoute
+  '/dashboard': typeof AppDashboardRoute
+  '/trilha': typeof AppTrilhaRouteWithChildren
   '/onboarding/perfil': typeof OnboardingPerfilRoute
-  '/app/trilha/$moduloId': typeof AppTrilhaModuloIdRoute
+  '/trilha/$moduloId': typeof AppTrilhaModuloIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/app': typeof AppRouteWithChildren
   '/gestor': typeof GestorRoute
   '/login': typeof LoginRoute
-  '/app/barreiras': typeof AppBarreirasRoute
-  '/app/configuracoes': typeof AppConfiguracoesRoute
-  '/app/dashboard': typeof AppDashboardRoute
-  '/app/trilha': typeof AppTrilhaRouteWithChildren
+  '/barreiras': typeof AppBarreirasRoute
+  '/configuracoes': typeof AppConfiguracoesRoute
+  '/dashboard': typeof AppDashboardRoute
+  '/trilha': typeof AppTrilhaRouteWithChildren
   '/onboarding/perfil': typeof OnboardingPerfilRoute
-  '/app/trilha/$moduloId': typeof AppTrilhaModuloIdRoute
+  '/trilha/$moduloId': typeof AppTrilhaModuloIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/app': typeof AppRouteWithChildren
+  '/_app': typeof AppRouteWithChildren
   '/gestor': typeof GestorRoute
   '/login': typeof LoginRoute
-  '/app/barreiras': typeof AppBarreirasRoute
-  '/app/configuracoes': typeof AppConfiguracoesRoute
-  '/app/dashboard': typeof AppDashboardRoute
-  '/app/trilha': typeof AppTrilhaRouteWithChildren
+  '/_app/barreiras': typeof AppBarreirasRoute
+  '/_app/configuracoes': typeof AppConfiguracoesRoute
+  '/_app/dashboard': typeof AppDashboardRoute
+  '/_app/trilha': typeof AppTrilhaRouteWithChildren
   '/onboarding/perfil': typeof OnboardingPerfilRoute
-  '/app/trilha/$moduloId': typeof AppTrilhaModuloIdRoute
+  '/_app/trilha/$moduloId': typeof AppTrilhaModuloIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/app'
     | '/gestor'
     | '/login'
-    | '/app/barreiras'
-    | '/app/configuracoes'
-    | '/app/dashboard'
-    | '/app/trilha'
+    | '/barreiras'
+    | '/configuracoes'
+    | '/dashboard'
+    | '/trilha'
     | '/onboarding/perfil'
-    | '/app/trilha/$moduloId'
+    | '/trilha/$moduloId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/app'
     | '/gestor'
     | '/login'
-    | '/app/barreiras'
-    | '/app/configuracoes'
-    | '/app/dashboard'
-    | '/app/trilha'
+    | '/barreiras'
+    | '/configuracoes'
+    | '/dashboard'
+    | '/trilha'
     | '/onboarding/perfil'
-    | '/app/trilha/$moduloId'
+    | '/trilha/$moduloId'
   id:
     | '__root__'
     | '/'
-    | '/app'
+    | '/_app'
     | '/gestor'
     | '/login'
-    | '/app/barreiras'
-    | '/app/configuracoes'
-    | '/app/dashboard'
-    | '/app/trilha'
+    | '/_app/barreiras'
+    | '/_app/configuracoes'
+    | '/_app/dashboard'
+    | '/_app/trilha'
     | '/onboarding/perfil'
-    | '/app/trilha/$moduloId'
+    | '/_app/trilha/$moduloId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -171,10 +166,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GestorRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/app': {
-      id: '/app'
-      path: '/app'
-      fullPath: '/app'
+    '/_app': {
+      id: '/_app'
+      path: ''
+      fullPath: '/'
       preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
     }
@@ -192,38 +187,38 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OnboardingPerfilRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/app/trilha': {
-      id: '/app/trilha'
+    '/_app/trilha': {
+      id: '/_app/trilha'
       path: '/trilha'
-      fullPath: '/app/trilha'
+      fullPath: '/trilha'
       preLoaderRoute: typeof AppTrilhaRouteImport
       parentRoute: typeof AppRoute
     }
-    '/app/dashboard': {
-      id: '/app/dashboard'
+    '/_app/dashboard': {
+      id: '/_app/dashboard'
       path: '/dashboard'
-      fullPath: '/app/dashboard'
+      fullPath: '/dashboard'
       preLoaderRoute: typeof AppDashboardRouteImport
       parentRoute: typeof AppRoute
     }
-    '/app/configuracoes': {
-      id: '/app/configuracoes'
+    '/_app/configuracoes': {
+      id: '/_app/configuracoes'
       path: '/configuracoes'
-      fullPath: '/app/configuracoes'
+      fullPath: '/configuracoes'
       preLoaderRoute: typeof AppConfiguracoesRouteImport
       parentRoute: typeof AppRoute
     }
-    '/app/barreiras': {
-      id: '/app/barreiras'
+    '/_app/barreiras': {
+      id: '/_app/barreiras'
       path: '/barreiras'
-      fullPath: '/app/barreiras'
+      fullPath: '/barreiras'
       preLoaderRoute: typeof AppBarreirasRouteImport
       parentRoute: typeof AppRoute
     }
-    '/app/trilha/$moduloId': {
-      id: '/app/trilha/$moduloId'
+    '/_app/trilha/$moduloId': {
+      id: '/_app/trilha/$moduloId'
       path: '/$moduloId'
-      fullPath: '/app/trilha/$moduloId'
+      fullPath: '/trilha/$moduloId'
       preLoaderRoute: typeof AppTrilhaModuloIdRouteImport
       parentRoute: typeof AppTrilhaRoute
     }
