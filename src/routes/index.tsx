@@ -55,7 +55,7 @@ function Index() {
             data-focus-hide
             style={{
               background:
-                "radial-gradient(60% 50% at 70% 20%, color-mix(in oklab, var(--color-primary) 18%, transparent), transparent 70%), radial-gradient(50% 40% at 10% 80%, color-mix(in oklab, var(--color-accent) 35%, transparent), transparent 70%)",
+                "radial-gradient(60% 50% at 70% 20%, color-mix(in oklab, var(--color-primary) 45%, transparent), transparent 70%), radial-gradient(50% 40% at 10% 80%, color-mix(in oklab, var(--color-accent) 65%, transparent), transparent 70%)",
             }}
           />
           <div className="mx-auto max-w-6xl px-6 py-20 sm:py-28">
@@ -177,9 +177,9 @@ function ProfileCard({
   desc: string;
 }) {
   return (
-    <article className="group relative overflow-hidden rounded-2xl border border-white/20 bg-white/10 p-5 shadow-lg backdrop-blur-xl backdrop-saturate-150 transition-all hover:-translate-y-1 hover:border-white/30 hover:bg-white/15 dark:border-white/10 dark:bg-white/5">
-      <div className="absolute -top-12 -right-12 h-32 w-32 rounded-full bg-primary/30 blur-3xl transition-opacity group-hover:opacity-80" aria-hidden />
-      <div className="relative grid h-10 w-10 place-items-center rounded-xl border border-white/20 bg-white/20 text-primary backdrop-blur-md dark:bg-white/10">
+    <article className="group relative overflow-hidden rounded-2xl border border-white/25 bg-white/[0.12] p-5 shadow-[0_8px_32px_0_rgba(31,38,135,0.15)] backdrop-blur-2xl backdrop-saturate-[1.8] transition-colors hover:border-white/40 hover:bg-white/[0.18] dark:border-white/15 dark:bg-white/[0.08]">
+      <div className="absolute -top-10 -right-10 h-28 w-28 rounded-full bg-primary/25 blur-2xl transition-opacity group-hover:opacity-60" aria-hidden />
+      <div className="relative grid h-10 w-10 place-items-center rounded-xl border border-white/25 bg-white/[0.22] text-primary shadow-sm backdrop-blur-md dark:bg-white/10">
         {icon}
       </div>
       <h3 className="relative mt-4 text-base font-semibold">{title}</h3>
