@@ -1,68 +1,67 @@
+## Objetivo
+1. Garantir que o botão de acessibilidade (canto inferior direito) **nunca desapareça** durante a navegação.
+2. Adicionar uma camada concreta de **navegação por teclado** para deficientes motores, hoje só prometida no perfil "motor".
 
-# Refinar fundos e gradientes (mantendo acessibilidade)
+---
 
-## Diagnóstico
+## 1. Botão de acessibilidade sempre visível
 
-- **Fundo branco já é o padrão** em todas as páginas (`--background: oklch(0.99 0.005 250)`). O que parece "preto/vazio" no mobile da rota `/login` é o painel gradiente que está escondido em telas < 1024px (`hidden lg:flex`) — sobra só o formulário branco.
-- **Os gradientes da landing existem mas estão sutis demais** (opacidade 18% em radial). Quase não se veem no fundo claro.
-- **Outras telas (dashboard, módulo, barreiras, configurações, gestor) não têm gradiente nenhum** — usam só cards lisos. Visualmente "secas" comparadas às referências (Brix/Create-an-account).
-- **Alto contraste continua sobrescrevendo tudo** para fundo preto + texto amarelo (correto e mantido).
+O `AccessibilityBar` já é renderizado no `__root.tsx`, então persiste entre rotas. O sumiço acontece porque:
 
-## Páginas já implementadas (confirmação)
+- No **Modo Foco** o CSS `.focus-mode [data-focus-hide="true"] { display:none }` é global, e qualquer wrapper futuro com esse atributo esconde o botão.
+- Em páginas com `aurora-panel` / cards com `backdrop-blur` ou `z-index` altos (ex.: hero da landing, sidebar do `_app`), o botão fica atrás visualmente.
+- Em viewport mobile, o painel aberto (w-80) pode sair da tela e parecer "sumir" ao rolar.
 
-Todas as 9 rotas existem com conteúdo:
+**Mudanças (`src/components/AccessibilityBar.tsx` + `src/styles.css`):**
 
-| Rota | Status |
-|---|---|
-| `/` (landing) | feito |
-| `/login` | feito |
-| `/onboarding/perfil` (wizard 3 passos) | feito |
-| `/gestor` | feito |
-| `/app/dashboard` | feito |
-| `/app/trilha` (índice de módulos) | feito |
-| `/app/trilha/$moduloId` (player) | feito |
-| `/app/barreiras` | feito |
-| `/app/configuracoes` | feito |
+- Subir o container para `z-[100]` e adicionar `pointer-events-auto`.
+- Trocar `data-focus-hide="false"` por uma regra CSS dedicada `.a11y-bar { display: block !important }` que sobrescreve `.focus-mode` e qualquer `hidden` herdado.
+- Garantir `position: fixed` mesmo em containers com `transform`/`filter` movendo o botão para fora do `<RootComponent>` direto no `<body>` via `createPortal`, evitando que `aurora-panel` (que usa `isolation`) crie um novo stacking context que oculte o botão.
+- Em telas estreitas, painel aberto usa `max-w-[calc(100vw-2rem)]` e `max-h-[calc(100dvh-6rem)] overflow-auto`.
 
-Se você sente que falta alguma seção, me diga qual — me parece que o que estava faltando é só **acabamento visual**.
+---
 
-## Mudanças que vou fazer
+## 2. Recursos reais de navegação por teclado
 
-### 1. Gradientes claros visíveis em todas as páginas
+Adicionar três coisas integradas:
 
-Criar um wrapper `<PageBackground>` (ou variantes de utilitário no `styles.css`) com gradiente suave azul-lilás:
+### a) Atalhos globais (`src/lib/keyboard-shortcuts.ts` + hook em `__root.tsx`)
+- `Alt+1` Painel · `Alt+2` Trilha · `Alt+3` Barreiras · `Alt+4` Configurações
+- `Alt+A` abrir/fechar barra de acessibilidade
+- `Alt+C` alternar alto contraste · `Alt+F` Modo Foco · `Alt+M` aumentar fonte / `Alt+N` diminuir
+- `?` abrir modal "Atalhos de teclado"
+- `Esc` fecha modais/painéis abertos
+- Respeita `prefers-reduced-motion` e ignora atalhos quando o foco está em input/textarea/contenteditable.
 
-```
-radial-gradient(80% 60% no topo direito, primary 25%)
-+ radial-gradient(60% 50% embaixo esquerda, accent 50%)
-+ fundo branco base
-```
+### b) Modal "Atalhos de teclado" (`src/components/KeyboardShortcutsDialog.tsx`)
+- Lista completa dos atalhos, agrupados (Navegação · Acessibilidade · Geral).
+- Aberto via `?`, via novo botão dentro da barra de acessibilidade ("⌨️ Atalhos de teclado") e via link no rodapé do `_app` sidebar.
+- Usa `Dialog` do shadcn (foco trapado, ESC fecha, ARIA correto).
 
-Aplicar em: landing, login (área do formulário), onboarding wizard, gestor.
+### c) Indicador de foco reforçado quando o perfil "motor" está ativo
+- Em `src/styles.css`, quando `html.profile-motor` existe, aumentar `outline: 4px solid var(--ring); outline-offset: 4px` e adicionar uma "ring zone" `:focus-visible { box-shadow: 0 0 0 6px color-mix(in oklab, var(--ring) 40%, transparent) }`.
+- Em `accessibility.tsx`, refletir o perfil ativo em classes no `<html>` (`profile-motor`, `profile-visual`, etc.) dentro do `useEffect` existente, sem mudar a API.
+- Skip-links extras no `_app.tsx`: "Pular para navegação", "Pular para conteúdo" (o segundo já existe).
 
-### 2. Login com painel gradiente também no mobile
+---
 
-No `/login`, em telas < 1024px, mostrar uma faixa gradiente no topo (h-48) com o ícone e o título "Boas-vindas" — em vez de esconder completamente o aside. Em desktop continua split-screen.
+## Detalhes técnicos
 
-### 3. Cards e headers do app com toque de gradiente
+Arquivos a criar:
+- `src/components/KeyboardShortcutsDialog.tsx`
+- `src/lib/keyboard-shortcuts.ts` (hook `useGlobalShortcuts`)
 
-- Dashboard: header com gradiente suave em vez de fundo chapado; card "Próximo passo" com leve degradê azul→accent.
-- Player de módulo (`/app/trilha/$id`): manter o gradiente forte só dentro do "player" (já tem), mas adicionar um halo sutil ao redor da página.
-- Barreiras e configurações: cabeçalho com gradiente sutil decorativo (à direita, `data-focus-hide` para sumir no Modo Foco).
+Arquivos a editar:
+- `src/components/AccessibilityBar.tsx` — portal, z-index, item "Atalhos de teclado", botão "Mostrar atalhos".
+- `src/routes/__root.tsx` — montar `useGlobalShortcuts()` e `<KeyboardShortcutsDialog/>`.
+- `src/lib/accessibility.tsx` — toggles via classes `profile-*`.
+- `src/styles.css` — regra `.a11y-bar` indestrutível, foco reforçado para `profile-motor`.
+- `src/routes/_app.tsx` — link "⌨️ Atalhos (?)" no rodapé do sidebar.
 
-### 4. Garantir acessibilidade
+Sem mudanças no backend, sem novas dependências (usa `Dialog` shadcn já instalado).
 
-- Todos os gradientes vão em elementos com `data-focus-hide` ou `aria-hidden` — somem no **Modo Foco** e não atrapalham leitores de tela.
-- O tema `.high-contrast` continua substituindo o fundo para preto + amarelo (texto sempre tem contraste AAA).
-- Nenhum texto sobre gradiente que comprometa contraste — gradientes ficam só em fundos/decorativos.
+---
 
-## O que NÃO muda
-
-- Tema padrão segue **claro** (fundo branco).
-- Tokens semânticos permanecem (`bg-background`, `text-foreground`).
-- Alto contraste mantém preto/amarelo.
-- Conteúdo, rotas e fluxo permanecem iguais.
-
-## Resultado esperado
-
-Visual mais próximo das referências (Brix, painel split-screen), com degradê azul-lilás respirando em todas as páginas, sem perder legibilidade nem quebrar Alto Contraste / Modo Foco.
+## Fora do escopo
+- Não mexer no gradiente da landing nem no glassmorphism.
+- Não alterar rotas, autenticação ou exportação para GitHub.
