@@ -59,6 +59,10 @@ export function AccessibilityProvider({ children }: { children: ReactNode }) {
     root.classList.toggle("high-contrast", state.highContrast);
     root.classList.toggle("focus-mode", state.focusMode);
     root.style.setProperty("--font-scale", String(state.fontScale));
+    const all: ProfileKey[] = ["visual", "low-vision", "hearing", "neuro", "motor"];
+    for (const p of all) {
+      root.classList.toggle(`profile-${p}`, state.profiles.includes(p));
+    }
   }, [state]);
 
   const value = useMemo<Ctx>(
