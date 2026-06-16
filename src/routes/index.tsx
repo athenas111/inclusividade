@@ -52,7 +52,7 @@ function Index() {
           className="relative overflow-hidden px-4 py-16 sm:px-6 sm:py-24"
           style={{
             background:
-              "radial-gradient(ellipse at top right, #dbeafe 0%, #ffffff 60%)",
+              "radial-gradient(ellipse at top right, #60a5fa 0%, #ffffff 70%)",
           }}
         >
           <div className="mx-auto max-w-6xl">
