@@ -1,67 +1,26 @@
-## Objetivo
-1. Garantir que o botão de acessibilidade (canto inferior direito) **nunca desapareça** durante a navegação.
-2. Adicionar uma camada concreta de **navegação por teclado** para deficientes motores, hoje só prometida no perfil "motor".
+## O que aconteceu
 
----
+Na rodada anterior você pediu explicitamente "no local do gradiente, ele deve ser de dois tons de azul, também com glassmorphism" — então troquei o fundo claro do hero por um gradiente azul escuro (#2563eb → #1e40af) com painel glass branco translúcido por cima. Como o painel ficou escuro, o botão "Visão do gestor" (outline com texto branco) virou um retângulo praticamente invisível sobre o azul — não está "totalmente branco", está branco com texto branco.
 
-## 1. Botão de acessibilidade sempre visível
+A imagem que você anexou mostra o estado **anterior** a essa mudança: fundo claro com sutil degradê azul-clarinho → branco, título preto, e "Visão do gestor" como botão outline branco com texto escuro.
 
-O `AccessibilityBar` já é renderizado no `__root.tsx`, então persiste entre rotas. O sumiço acontece porque:
+## Plano: voltar para o visual da foto
 
-- No **Modo Foco** o CSS `.focus-mode [data-focus-hide="true"] { display:none }` é global, e qualquer wrapper futuro com esse atributo esconde o botão.
-- Em páginas com `aurora-panel` / cards com `backdrop-blur` ou `z-index` altos (ex.: hero da landing, sidebar do `_app`), o botão fica atrás visualmente.
-- Em viewport mobile, o painel aberto (w-80) pode sair da tela e parecer "sumir" ao rolar.
+**Arquivo:** `src/routes/index.tsx` — seção do hero (linhas ~50–86)
 
-**Mudanças (`src/components/AccessibilityBar.tsx` + `src/styles.css`):**
+1. **Remover** a `<div>` de fundo com `linear-gradient(135deg, #2563eb, #1e40af)`.
+2. **Remover** o painel glassmorphism escuro (`bg-white/[0.08]`, `border-white/30`, `backdrop-blur-3xl`, `shadow-...`) que envolve o conteúdo do hero — voltar a renderizar o conteúdo direto na seção, sem card.
+3. **Aplicar** na própria `<section>` um fundo claro com degradê sutil azul → branco, como na foto:
+   - `background: radial-gradient(ellipse at top right, #dbeafe 0%, #ffffff 60%)` (ou linear suave equivalente), mantido via `style` para reproduzir fielmente o tom da referência.
+4. **Restaurar as cores de texto claras → escuras:**
+   - Badge "Design Universal…": borda `border-border`, fundo `bg-background`, texto `text-foreground`, ícone `text-primary`.
+   - `<h1>`: `text-foreground` (preto/quase-preto), sem `text-white`.
+   - `<p>` descrição: `text-muted-foreground`.
+5. **Restaurar os botões para o estilo da foto:**
+   - "Entrar como funcionário": botão primário padrão (`<Button>` sem override de cor) — fica azul com texto branco automaticamente pelo design system.
+   - "Visão do gestor": `variant="outline"` padrão, **sem** classes `border-white/40 text-white hover:bg-white/15` — assim fica branco com borda cinza e texto escuro, como na imagem.
+6. Manter o restante da página (seções "O problema", "Cinco perfis", cards etc.) como está — a mudança é só no hero.
 
-- Subir o container para `z-[100]` e adicionar `pointer-events-auto`.
-- Trocar `data-focus-hide="false"` por uma regra CSS dedicada `.a11y-bar { display: block !important }` que sobrescreve `.focus-mode` e qualquer `hidden` herdado.
-- Garantir `position: fixed` mesmo em containers com `transform`/`filter` movendo o botão para fora do `<RootComponent>` direto no `<body>` via `createPortal`, evitando que `aurora-panel` (que usa `isolation`) crie um novo stacking context que oculte o botão.
-- Em telas estreitas, painel aberto usa `max-w-[calc(100vw-2rem)]` e `max-h-[calc(100dvh-6rem)] overflow-auto`.
+## Observação
 
----
-
-## 2. Recursos reais de navegação por teclado
-
-Adicionar três coisas integradas:
-
-### a) Atalhos globais (`src/lib/keyboard-shortcuts.ts` + hook em `__root.tsx`)
-- `Alt+1` Painel · `Alt+2` Trilha · `Alt+3` Barreiras · `Alt+4` Configurações
-- `Alt+A` abrir/fechar barra de acessibilidade
-- `Alt+C` alternar alto contraste · `Alt+F` Modo Foco · `Alt+M` aumentar fonte / `Alt+N` diminuir
-- `?` abrir modal "Atalhos de teclado"
-- `Esc` fecha modais/painéis abertos
-- Respeita `prefers-reduced-motion` e ignora atalhos quando o foco está em input/textarea/contenteditable.
-
-### b) Modal "Atalhos de teclado" (`src/components/KeyboardShortcutsDialog.tsx`)
-- Lista completa dos atalhos, agrupados (Navegação · Acessibilidade · Geral).
-- Aberto via `?`, via novo botão dentro da barra de acessibilidade ("⌨️ Atalhos de teclado") e via link no rodapé do `_app` sidebar.
-- Usa `Dialog` do shadcn (foco trapado, ESC fecha, ARIA correto).
-
-### c) Indicador de foco reforçado quando o perfil "motor" está ativo
-- Em `src/styles.css`, quando `html.profile-motor` existe, aumentar `outline: 4px solid var(--ring); outline-offset: 4px` e adicionar uma "ring zone" `:focus-visible { box-shadow: 0 0 0 6px color-mix(in oklab, var(--ring) 40%, transparent) }`.
-- Em `accessibility.tsx`, refletir o perfil ativo em classes no `<html>` (`profile-motor`, `profile-visual`, etc.) dentro do `useEffect` existente, sem mudar a API.
-- Skip-links extras no `_app.tsx`: "Pular para navegação", "Pular para conteúdo" (o segundo já existe).
-
----
-
-## Detalhes técnicos
-
-Arquivos a criar:
-- `src/components/KeyboardShortcutsDialog.tsx`
-- `src/lib/keyboard-shortcuts.ts` (hook `useGlobalShortcuts`)
-
-Arquivos a editar:
-- `src/components/AccessibilityBar.tsx` — portal, z-index, item "Atalhos de teclado", botão "Mostrar atalhos".
-- `src/routes/__root.tsx` — montar `useGlobalShortcuts()` e `<KeyboardShortcutsDialog/>`.
-- `src/lib/accessibility.tsx` — toggles via classes `profile-*`.
-- `src/styles.css` — regra `.a11y-bar` indestrutível, foco reforçado para `profile-motor`.
-- `src/routes/_app.tsx` — link "⌨️ Atalhos (?)" no rodapé do sidebar.
-
-Sem mudanças no backend, sem novas dependências (usa `Dialog` shadcn já instalado).
-
----
-
-## Fora do escopo
-- Não mexer no gradiente da landing nem no glassmorphism.
-- Não alterar rotas, autenticação ou exportação para GitHub.
+Os cards mais abaixo na página continuam com o glassmorphism aprimorado da rodada anterior — só estou desfazendo o gradiente azul do hero porque ele quebrou o contraste do botão secundário e não corresponde ao visual que você quer.

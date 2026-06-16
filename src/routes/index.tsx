@@ -48,37 +48,34 @@ function Index() {
       </header>
 
       <main id="conteudo-principal">
-        <section className="relative overflow-hidden py-10 px-4 sm:px-6">
-          {/* Fundo gradiente dois tons de azul */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 -z-10"
-            style={{
-              background: "linear-gradient(135deg, #2563eb 0%, #1e40af 100%)",
-            }}
-          />
-          {/* Painel glassmorphism sobre o gradiente */}
-          <div className="mx-auto max-w-6xl rounded-3xl border border-white/30 bg-white/[0.08] p-8 shadow-[0_8px_32px_rgba(0,0,0,0.2)] backdrop-blur-3xl sm:p-12">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/15 px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-md">
-              <CheckCircle2 aria-hidden className="h-3.5 w-3.5 text-white" />
+        <section
+          className="relative overflow-hidden px-4 py-16 sm:px-6 sm:py-24"
+          style={{
+            background:
+              "radial-gradient(ellipse at top right, #dbeafe 0%, #ffffff 60%)",
+          }}
+        >
+          <div className="mx-auto max-w-6xl">
+            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-foreground">
+              <CheckCircle2 aria-hidden className="h-3.5 w-3.5 text-primary" />
               Design Universal para a Aprendizagem
             </span>
-            <h1 className="mt-5 max-w-3xl text-4xl font-bold tracking-tight text-white sm:text-6xl">
+            <h1 className="mt-5 max-w-3xl text-4xl font-bold tracking-tight text-foreground sm:text-6xl">
               Onboarding que se adapta a cada pessoa — não o contrário.
             </h1>
-            <p className="mt-5 max-w-2xl text-lg text-white/80">
+            <p className="mt-5 max-w-2xl text-lg text-muted-foreground">
               A InclusivOn é a plataforma de integração corporativa que ajusta interface, conteúdo e ritmo
               ao Perfil de Acessibilidade de quem está chegando — e prepara gestor e equipe para receber
               bem.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild size="lg" className="bg-white text-blue-700 hover:bg-white/90">
+              <Button asChild size="lg">
                 <Link to="/login">
                   Entrar como funcionário
                   <ArrowRight aria-hidden className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-white/40 text-white hover:bg-white/15 hover:text-white">
+              <Button asChild size="lg" variant="outline">
                 <Link to="/gestor">Visão do gestor</Link>
               </Button>
             </div>
