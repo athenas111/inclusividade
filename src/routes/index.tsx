@@ -49,11 +49,7 @@ function Index() {
 
       <main id="conteudo-principal">
         <section
-          className="relative overflow-hidden px-4 py-16 sm:px-6 sm:py-24"
-          style={{
-            background:
-              "radial-gradient(ellipse at top right, #60a5fa 0%, #ffffff 70%)",
-          }}
+          className="hero-gradient relative overflow-hidden px-4 py-16 sm:px-6 sm:py-24"
         >
           <div className="mx-auto max-w-6xl">
             <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-foreground">
@@ -155,7 +151,7 @@ function Index() {
         </section>
       </main>
 
-      <footer className="border-t border-border">
+      <footer className="border-t border-border" data-focus-hide>
         <div className="mx-auto max-w-6xl px-6 py-8 text-sm text-muted-foreground">
           InclusivOn — Protótipo acadêmico sobre Políticas Afirmativas, PCDs e Trabalho.
         </div>

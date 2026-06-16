@@ -223,6 +223,82 @@
   }
 }
 
+/* Hero gradient — token-aware so it adapts to high-contrast */
+.hero-gradient {
+  background: radial-gradient(ellipse at top right, #60a5fa 0%, #ffffff 70%);
+}
+.high-contrast .hero-gradient {
+  background: var(--color-background) !important;
+  border-bottom: 2px solid var(--color-border);
+}
+
+/* High-contrast: neutralize glassy/translucent surfaces that ignore tokens */
+.high-contrast [class*="bg-white/"],
+.high-contrast [class*="border-white/"] {
+  background-color: var(--color-card) !important;
+  border-color: var(--color-border) !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+.high-contrast [aria-hidden="true"].blur-2xl,
+.high-contrast .blur-2xl,
+.high-contrast .blur-3xl {
+  display: none !important;
+}
+
+/* ===== Modo Foco — leitura sem distrações ===== */
+.focus-mode {
+  /* Hide decorative auroras & blurred shapes */
+}
+.focus-mode .page-aurora::before,
+.focus-mode .hero-gradient,
+.focus-mode [aria-hidden="true"].blur-2xl,
+.focus-mode [aria-hidden="true"].blur-3xl,
+.focus-mode .blur-2xl,
+.focus-mode .blur-3xl {
+  background: var(--color-background) !important;
+  filter: none !important;
+}
+.focus-mode .hero-gradient {
+  background: var(--color-background) !important;
+}
+.focus-mode header[data-focus-hide],
+.focus-mode footer[data-focus-hide],
+.focus-mode nav[data-focus-hide],
+.focus-mode aside[data-focus-hide] {
+  display: none !important;
+}
+/* Strip glassy card chrome inside focus mode for readability */
+.focus-mode [class*="bg-white/"],
+.focus-mode [class*="border-white/"] {
+  background-color: var(--color-card) !important;
+  border-color: var(--color-border) !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+/* Constrain main content & boost readability */
+.focus-mode main {
+  max-width: 70ch;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.75;
+}
+.focus-mode main p,
+.focus-mode main li {
+  font-size: 1.0625rem;
+  letter-spacing: 0.005em;
+}
+.focus-mode main h1,
+.focus-mode main h2,
+.focus-mode main h3 {
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+/* Subtle reading indicator on the focused element */
+.focus-mode main :focus-within {
+  scroll-margin-block: 6rem;
+}
+
 /* Decorative aurora background — soft, visible light gradient.
    Used as a wrapper class on full-page or section containers.
    Disabled automatically under .high-contrast and .focus-mode. */
