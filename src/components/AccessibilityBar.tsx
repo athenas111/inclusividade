@@ -1,23 +1,40 @@
-import { useState } from "react";
-import { Accessibility, Contrast, Eye, Hand, Minus, Plus, X, Zap } from "lucide-react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+import { Accessibility, Contrast, Eye, Hand, Keyboard, Minus, Plus, X, Zap } from "lucide-react";
 import { useAccessibility } from "@/lib/accessibility";
 import { Button } from "@/components/ui/button";
+import { KeyboardShortcutsDialog } from "@/components/KeyboardShortcutsDialog";
 
 const FONT_STEPS: Array<1 | 1.25 | 1.5 | 1.75> = [1, 1.25, 1.5, 1.75];
 
 export function AccessibilityBar() {
   const [open, setOpen] = useState(false);
+  const [shortcutsOpen, setShortcutsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const { state, update } = useAccessibility();
+
+  useEffect(() => {
+    setMounted(true);
+    const handler = (e: Event) => {
+      const ce = e as CustomEvent<{ action?: string }>;
+      if (ce.detail?.action === "toggle") setOpen((o) => !o);
+      if (ce.detail?.action === "shortcuts") setShortcutsOpen(true);
+    };
+    window.addEventListener("inclusivon:a11y", handler as EventListener);
+    return () => window.removeEventListener("inclusivon:a11y", handler as EventListener);
+  }, []);
 
   const fontIndex = FONT_STEPS.indexOf(state.fontScale);
 
-  return (
-    <div className="fixed bottom-4 right-4 z-50 print:hidden" data-focus-hide="false">
+  if (!mounted) return null;
+
+  const node = (
+    <div className="a11y-bar fixed bottom-4 right-4 z-[100] print:hidden">
       {open ? (
         <div
           role="dialog"
           aria-label="Barra de acessibilidade"
-          className="w-80 rounded-2xl border border-border bg-card p-4 shadow-2xl"
+          className="w-80 max-w-[calc(100vw-2rem)] max-h-[calc(100dvh-6rem)] overflow-auto rounded-2xl border border-border bg-card p-4 shadow-2xl"
         >
           <div className="mb-3 flex items-center justify-between">
             <h2 className="text-base font-semibold text-card-foreground">Acessibilidade</h2>
@@ -93,6 +110,17 @@ export function AccessibilityBar() {
                 </Button>
               </div>
             </div>
+
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setShortcutsOpen(true)}
+              className="w-full justify-start gap-2"
+            >
+              <Keyboard aria-hidden className="h-4 w-4" />
+              Atalhos de teclado
+              <kbd className="ml-auto rounded border border-border bg-muted px-1.5 py-0.5 text-xs">?</kbd>
+            </Button>
           </div>
         </div>
       ) : (
@@ -105,8 +133,11 @@ export function AccessibilityBar() {
           <Accessibility aria-hidden className="h-6 w-6" />
         </Button>
       )}
+      <KeyboardShortcutsDialog open={shortcutsOpen} onOpenChange={setShortcutsOpen} />
     </div>
   );
+
+  return createPortal(node, document.body);
 }
 
 function ToggleRow({
