@@ -36,6 +36,7 @@ function AppLayout() {
       <div className="mx-auto flex max-w-7xl">
         <aside
           aria-label="Navegação lateral"
+          data-focus-hide
           className="sticky top-0 hidden h-dvh w-60 shrink-0 flex-col border-r border-border bg-card px-4 py-6 lg:flex"
         >
           <Link to="/" className="mb-8 flex items-center gap-2 font-bold">
@@ -91,7 +92,7 @@ function AppLayout() {
         </aside>
 
         <div className="flex min-w-0 flex-1 flex-col">
-          <header className="flex items-center justify-between border-b border-border bg-card px-6 py-3 lg:hidden">
+          <header data-focus-hide className="flex items-center justify-between border-b border-border bg-card px-6 py-3 lg:hidden">
             <Link to="/" className="flex items-center gap-2 font-bold">
               <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground">
                 <Sparkles aria-hidden className="h-4 w-4" />
