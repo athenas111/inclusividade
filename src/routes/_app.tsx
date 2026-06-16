@@ -1,6 +1,6 @@
 import { createFileRoute, Link, Outlet, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useEffect } from "react";
-import { BookOpen, LayoutDashboard, LifeBuoy, Settings, Sparkles } from "lucide-react";
+import { BookOpen, Keyboard, LayoutDashboard, LifeBuoy, Settings, Sparkles } from "lucide-react";
 import { useAccessibility } from "@/lib/accessibility";
 
 export const Route = createFileRoute("/_app")({
@@ -74,6 +74,19 @@ function AppLayout() {
                 ? "Sem perfis de acessibilidade"
                 : `${state.profiles.length} perfil(s) ativo(s)`}
             </p>
+            <button
+              type="button"
+              onClick={() =>
+                window.dispatchEvent(
+                  new CustomEvent("inclusivon:a11y", { detail: { action: "shortcuts" } }),
+                )
+              }
+              className="mt-2 flex w-full items-center gap-2 rounded-md border border-border bg-card px-2 py-1.5 text-left text-xs font-medium text-foreground hover:bg-muted"
+            >
+              <Keyboard aria-hidden className="h-3.5 w-3.5" />
+              Atalhos de teclado
+              <kbd className="ml-auto rounded border border-border bg-muted px-1.5">?</kbd>
+            </button>
           </div>
         </aside>
 
