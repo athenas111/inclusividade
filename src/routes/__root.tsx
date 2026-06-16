@@ -13,6 +13,9 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { AccessibilityProvider } from "../lib/accessibility";
 import { AccessibilityBar } from "../components/AccessibilityBar";
+import { KeyboardShortcutsDialog } from "../components/KeyboardShortcutsDialog";
+import { useGlobalShortcuts } from "../lib/keyboard-shortcuts";
+import { useState } from "react";
 
 function NotFoundComponent() {
   return (
@@ -132,13 +135,28 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <AccessibilityProvider>
-        <a href="#conteudo-principal" className="skip-link">
-          Pular para o conteúdo principal
-        </a>
-        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-        <Outlet />
-        <AccessibilityBar />
+        <RootContent />
       </AccessibilityProvider>
     </QueryClientProvider>
+  );
+}
+
+function RootContent() {
+  const [shortcutsOpen, setShortcutsOpen] = useState(false);
+  useGlobalShortcuts({
+    onToggleA11yBar: () =>
+      window.dispatchEvent(new CustomEvent("inclusivon:a11y", { detail: { action: "toggle" } })),
+    onOpenShortcuts: () => setShortcutsOpen(true),
+  });
+  return (
+    <>
+      <a href="#conteudo-principal" className="skip-link">
+        Pular para o conteúdo principal
+      </a>
+      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+      <Outlet />
+      <AccessibilityBar />
+      <KeyboardShortcutsDialog open={shortcutsOpen} onOpenChange={setShortcutsOpen} />
+    </>
   );
 }
