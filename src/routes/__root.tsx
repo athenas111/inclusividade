@@ -96,9 +96,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:title", content: "InclusivOn" },
-      { name: "description", content: "Inclusive Start is an accessible onboarding platform for diverse workforces." },
-      { property: "og:description", content: "Inclusive Start is an accessible onboarding platform for diverse workforces." },
-      { name: "twitter:description", content: "Inclusive Start is an accessible onboarding platform for diverse workforces." },
+      {
+        name: "twitter:description",
+        content: "Integração corporativa que se adapta a cada pessoa — sem barreiras desde o primeiro dia.",
+      },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/b771c7cc-c69e-4431-8c7e-34dd7ab084ae/id-preview-da1f2cc6--98d75164-888f-497c-b881-4ca50982f0aa.lovable.app-1781546431604.png" },
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/b771c7cc-c69e-4431-8c7e-34dd7ab084ae/id-preview-da1f2cc6--98d75164-888f-497c-b881-4ca50982f0aa.lovable.app-1781546431604.png" },
     ],
